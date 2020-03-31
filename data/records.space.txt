@@ -1,0 +1,5 @@
+LastName FirstName Gender FavoriteColor DateOfBirth
+Sexton Anne F Black 11/09/1928
+Bukowski Charles M Brown 08/16/1920
+Wright Richard M Yellow 09/04/1908
+Shamaya Otep F Purple 09/07/1979
