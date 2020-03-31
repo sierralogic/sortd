@@ -1,4 +1,4 @@
 #!/bin/bash
 echo Test coverage for sortd
-lein cloverage -e "sortd.repl" -e "sortd.views.layout"
+lein cloverage -e "sortd.repl" -e "sortd.views.layout" -e "sortd.handler"
 

@@ -36,6 +36,15 @@
           (is (= (mapv :LastName sorted-by-name)
                  expected-sorted-by-name-last-names))))))
 
+  (testing "sorting by field"
+    (records! nil)
+    (let [load-result (sortd/load-delimited-data-file "data/records.csv")]
+      (if-let [error (:error load-result)]
+        (is (= nil error))
+        (let [sorted-by-name (sort-by-field :name)]
+          (is (= (mapv :LastName sorted-by-name)
+                 expected-sorted-by-name-last-names))))))
+
   )
 
 (deftest storage
@@ -52,6 +61,10 @@
 
   (testing "dob format"
     (is (= (format-dob "1999/01/02") "01/02/1999")))
+
+  (testing "sad dob format"
+    (is (= (format-dob 42) 42))
+    (is (= (format-dob "34") "34")))
 
   (testing "decorate record"
     (is (= (decorate-record {:DateOfBirth "1920/08/16"}) {:DateOfBirth "08/16/1920"})))
