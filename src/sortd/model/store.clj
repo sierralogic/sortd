@@ -50,3 +50,14 @@
 (def sort-by-name
   "Sort records by last name, then first name."
   (partial sorted-records name-sort-f))
+
+(def ^:private sort-by-field-fs {:gender sort-by-gender
+                                 :dob sort-by-dob
+                                 :name sort-by-name})
+
+(defn sort-by-field
+  "Sort records by field `field` for optional record vector `rs`.
+  If `rs` is `nil`, then use @records `:records` vector."
+  ([field] (sort-by-field field nil))
+  ([field rs]
+   ((get sort-by-field-fs field sort-by-name) rs)))

@@ -1,0 +1,3 @@
+#!/bin/bash
+echo Starting sortd
+lein ring server

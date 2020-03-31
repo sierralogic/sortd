@@ -25,4 +25,26 @@
       (is (= (:field-count good-load) field-count))
       (is (= (:record-count good-load) record-count))))
 
+  (testing "delimited data file parsing"
+    (let [good-load (parse-delimited-data-file "data/records.csv")]
+      (is (nil? (:error good-load)))
+      (is (= (:delimiter-type good-load) :comma))
+      (is (= (:field-count good-load) 5))
+      (is (= (:record-count good-load) 4))))
+
+  (testing "delimited data file parsing exception"
+    (let [sad-parse (parse-delimited-data-file nil)]
+      (is (:error sad-parse))))
+
+  (testing "delimited data string parsing"
+    (let [good-load (parse-delimited-data (slurp "data/records.csv"))]
+      (is (nil? (:error good-load)))
+      (is (= (:delimiter-type good-load) :comma))
+      (is (= (:field-count good-load) 5))
+      (is (= (:record-count good-load) 4))))
+
+  (testing "delimited data string parsing exception"
+    (let [sad-parse (parse-delimited-data nil)]
+      (is (:error sad-parse))))
+
   )
