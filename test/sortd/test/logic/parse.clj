@@ -1,6 +1,7 @@
 (ns sortd.test.logic.parse
   (:require [clojure.test :refer :all]
-            [sortd.logic.parse :refer :all]))
+            [sortd.logic.parse :refer :all]
+            [sortd.test.conf :as conf]))
 
 (deftest parse-utils
 
@@ -29,7 +30,7 @@
            {:a "alpha" :b "beta" :c "gamma"})))
 
   (testing "csv parsing"
-    (let [data (slurp "data/records.csv")
+    (let [data (slurp conf/csv-filename)
           parsed-result (->records data)
           {:keys [headers field-count record-count delimiter-type]} parsed-result]
       (is (= field-count 5))
@@ -38,7 +39,7 @@
       (is (= (into #{} headers) data-headers))))
 
   (testing "pipe-delimited parsing"
-    (let [data (slurp "data/records.pipe.txt")
+    (let [data (slurp conf/pipe-filename)
           parsed-result (->records data)
           {:keys [headers field-count record-count delimiter-type]} parsed-result]
       (is (= field-count 5))
@@ -47,7 +48,7 @@
       (is (= (into #{} headers) data-headers))))
 
   (testing "space-delimited parsing"
-    (let [data (slurp "data/records.space.txt")
+    (let [data (slurp conf/space-filename)
           parsed-result (->records data)
           {:keys [headers field-count record-count delimiter-type]} parsed-result]
       (is (= field-count 5))
@@ -56,5 +57,3 @@
       (is (= (into #{} headers) data-headers))))
 
   )
-
-

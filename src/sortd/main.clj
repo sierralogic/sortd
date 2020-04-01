@@ -15,6 +15,16 @@
   [& xs]
   (apply *output-f* xs))
 
+(def help-text
+  (str "\nUsage: sortd <data-delimited-filename> [<sort-by-field: may be name, dob, or gender>]\n\n"
+       "If the 'sort-by-field` is missing or invalid, name is used for sorting.\n\n"))
+
+(defn help
+  "Display help."
+  []
+  (output help-text)
+  help-text)
+
 (defn parse-display-file
   "Parses and displays delimited data field `filename` with optional `sort-by-field`
   string (defaults to `name`)."
@@ -23,7 +33,8 @@
    (let [result (sortd/parse-delimited-data-file filename)]
      (if-let [error (:error result)]
        (do
-         (output (str "Error loading and parsing data file '" filename "'.\n\n" error "\n\n"))
+         (output (str "\nError loading and parsing data file '" filename "'.\n\n" error "\n"
+                      help-text))
          :bad-parse)
        (let [{:keys [headers records]} result
              sorted (store/sort-by-field (keyword (or sort-by-field
@@ -46,16 +57,6 @@
                                          sorted) "\n")]
              (output result-str)
              result-str)))))))
-
-(def help-text
-  (str "\nUsage: stord <data-delimited-filename> [<sort-by-field: may be name, dob, or gender>]\n\n"
-       "If the 'sort-by-field` is missing or invalid, name is used for sorting.\n"))
-
-(defn help
-  "Display help."
-  []
-  (output help-text)
-  help-text)
 
 (defn -main
   "Main entry function for `sortd` application with variadic arguments `arg`."

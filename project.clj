@@ -2,6 +2,7 @@
   :description "Sortd sorts simple delimited records."
   :url "http://google.com"
   :dependencies [[org.clojure/clojure "1.10.0"]
+                 [cheshire "5.10.0"]
                  [compojure "1.6.1"]
                  [hiccup "1.0.5"]
                  [org.clojure/tools.cli "1.0.194"]
