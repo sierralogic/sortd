@@ -1,5 +1,6 @@
 (ns sortd.model.store
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [sortd.util :as util]))
 
 (def records
   "Core records atom as map with records vector in the `:records` field."
@@ -60,4 +61,4 @@
   If `rs` is `nil`, then use @records `:records` vector."
   ([field] (sort-by-field field nil))
   ([field rs]
-   ((get sort-by-field-fs field sort-by-name) rs)))
+   ((get sort-by-field-fs (util/->keyword field) sort-by-name) rs)))

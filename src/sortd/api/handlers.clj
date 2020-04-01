@@ -1,46 +1,24 @@
 (ns sortd.api.handlers
-  (:require [clojure.string :as str]
-            [sortd.util :refer [->str]])
-  (:import (java.util Date)))
-
-(defn not-yet-implemented
-  [request]
-  {:status 501
-   :body {:message (str "Endpoint '"
-                        (str/upper-case (->str (:request-method request "unk")))
-                        " " (:uri request) "' not yet implemented.")}})
+  (:require [sortd.logic.core :as sortd]
+            [sortd.model.store :as store]
+            [sortd.util :as util]))
 
 (defn records!
   "Store records from `request` payload/body."
   [request]
-  (not-yet-implemented request))
+  (let [body (:body request)
+        nil-body? (nil? body)
+        data (when-not nil-body? (if (string? body) body (slurp body)))
+        empty-body? (or nil-body? (empty? data))
+        result (sortd/load-delimited-data data)]
+    (if empty-body?
+      {:status 400 :body {:error "The payload of the request is empty."}}
+      {:status 201 :body (merge {:message "Data parsed/loaded successfully."}
+                                result)})))
 
-(defn records-by-gender
-  "Return sorted records by gender."
-  [request]
-  (not-yet-implemented request))
-
-(defn records-by-dob
-  "Return sorted records by dob."
-  [request]
-  (not-yet-implemented request))
-
-(defn records-by-name
-  "Return sorted records by name."
-  [request]
-  (not-yet-implemented request))
-
-(defn echo
-  "Simple echo of `request` without the original payload/body."
-  [request]
-  (println :echo :request request)
-  {:status 200 :body (-> request
-                         (dissoc :body)
-                         (assoc :ts (str (Date.))))})
-
-(defn ping
-  "Simple ping with string date and epoch time in response."
-  [_]
-  {:status 200
-   :body {:date (str (Date.))
-          :epoch (System/currentTimeMillis)}})
+(defn records-by-field
+  "Return sorted records by `field`."
+  [_ field]
+  (let [result (store/sort-by-field field)]
+    {:status 200
+     :body {:records result}}))

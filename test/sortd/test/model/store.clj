@@ -1,49 +1,46 @@
 (ns sortd.test.model.store
   (:require [clojure.test :refer :all]
             [sortd.logic.core :as sortd]
-            [sortd.model.store :refer :all]))
-
-(def expected-sorted-by-gender-last-names ["Sexton" "Shamaya" "Bukowski" "Wright"])
-(def expected-sorted-by-dob-last-names ["Wright" "Bukowski" "Sexton" "Shamaya"])
-(def expected-sorted-by-name-last-names ["Bukowski" "Sexton" "Shamaya" "Wright"])
+            [sortd.model.store :refer :all]
+            [sortd.test.conf :as conf]))
 
 (deftest sorting-records
 
   (testing "sorting by gender, name"
     (records! nil)
-    (let [load-result (sortd/load-delimited-data-file "data/records.csv")]
+    (let [load-result (sortd/load-delimited-data-file conf/csv-filename)]
       (if-let [error (:error load-result)]
         (is (= nil error))
         (let [sorted-by-gender (sort-by-gender)]
           (is (= (mapv :LastName sorted-by-gender)
-                 expected-sorted-by-gender-last-names))))))
+                 conf/expected-sorted-by-gender-last-names))))))
 
   (testing "sorting by dob"
     (records! nil)
-    (let [load-result (sortd/load-delimited-data-file "data/records.csv")]
+    (let [load-result (sortd/load-delimited-data-file conf/csv-filename)]
       (if-let [error (:error load-result)]
         (is (= nil error))
         (let [sorted-by-dob (sort-by-dob)]
           (is (= (mapv :LastName sorted-by-dob)
-                 expected-sorted-by-dob-last-names))))))
+                 conf/expected-sorted-by-dob-last-names))))))
 
   (testing "sorting by name"
     (records! nil)
-    (let [load-result (sortd/load-delimited-data-file "data/records.csv")]
+    (let [load-result (sortd/load-delimited-data-file conf/csv-filename)]
       (if-let [error (:error load-result)]
         (is (= nil error))
         (let [sorted-by-name (sort-by-name)]
           (is (= (mapv :LastName sorted-by-name)
-                 expected-sorted-by-name-last-names))))))
+                 conf/expected-sorted-by-name-last-names))))))
 
   (testing "sorting by field"
     (records! nil)
-    (let [load-result (sortd/load-delimited-data-file "data/records.csv")]
+    (let [load-result (sortd/load-delimited-data-file conf/csv-filename)]
       (if-let [error (:error load-result)]
         (is (= nil error))
         (let [sorted-by-name (sort-by-field :name)]
           (is (= (mapv :LastName sorted-by-name)
-                 expected-sorted-by-name-last-names))))))
+                 conf/expected-sorted-by-name-last-names))))))
 
   )
 

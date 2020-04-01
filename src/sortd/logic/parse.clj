@@ -13,8 +13,8 @@
   [line]
   (when-not (empty? line)
     (cond
-      (-> line str (str/index-of pipe-delimiter) nil? not) :pipe
-      (-> line str (str/index-of comma-delimiter) nil? not) :comma
+      (str/index-of line pipe-delimiter) :pipe
+      (str/index-of line comma-delimiter) :comma
       :else :space)))
 
 (def ^:private delimiter-regex {:pipe #"\|"
@@ -46,6 +46,10 @@
   "Parse the `delimited-data` string to a vector of record maps."
   [delimited-data]
   (try
+    (when (empty? delimited-data)
+      (throw (ex-info "Attempted to parse empty data string."
+                      {:ns :stord.logic.parse
+                       :f :->records})))
     (let [lines (str/split-lines delimited-data)
           header (first lines)
           data (rest lines)
@@ -62,5 +66,5 @@
        :field-count (count headers)
        :record-count (count records)})
     (catch Exception ex
-      {:error "Exception occurred during tranform to records."
+      {:error (str "Exception occurred during transform to records. " ex)
        :exception (str ex)})))
