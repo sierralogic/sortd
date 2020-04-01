@@ -72,9 +72,9 @@ Wright | Richard | M | Yellow | 09/04/1908
 ```text
 $ ./sortd data/file-not-found
 
-Error loading and parsing data file 'blah'.
+Error loading and parsing data file 'data/file-not-found'.
 
-Error processing/parsing/loading filename 'blah': java.io.FileNotFoundException: blah (No such file or directory)
+Error processing/parsing/loading filename 'data/file-not-found': java.io.FileNotFoundException: data/file-not-found (No such file or directory)
 
 Usage: sortd <data-delimited-filename> [<sort-by-field: may be name, dob, or gender>]
 
