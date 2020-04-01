@@ -3,13 +3,17 @@
 Sortd loads, parses, and sorts delimited data files and HTTP payloads.
 
 The `sortd` utility/service supports three (3) formats:
-- comma-delimited (csv) : ex `"FirstName, LastName, Hobby"`
-- pipe-delimited (`|`) : ex. `"FirstName | LastName | Hobby"`
-- space-delimited : ex. `"FirstName LastName Hobby"`
+- comma-delimited (csv) : ex `"LastName, FirstName, Gender, FavoriteColor, DateOfBirth
+"`
+- pipe-delimited (`|`) : ex. `"LastName | FirstName | Gender | FavoriteColor | DateOfBirth"`
+- space-delimited : ex. `"LastName FirstName Gender FavoriteColor DateOfBirth
+"`
 
 **NOTE:**
 - The delimiter is assumed to **NOT** be in the data or header values.
 - The `sortd` service/utility auto-determines delimiter type.
+- The `DateOfBirth` data entry values should be formatted `YYYY/MM/DD`
+  even though the dob values are displayed in `MM/DD/YYYY` format.
 
 ## Command Line
 
