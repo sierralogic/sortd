@@ -13,19 +13,14 @@
             [sortd.routes.home :refer [home-routes]]))
 
 (defn init []
-  (println "sortd is starting"))
+  (println "sortd service is starting"))
 
 (defn destroy []
-  (println "sortd is shutting down"))
+  (println "sortd service is shutting down"))
 
 (defroutes app-routes
   (route/resources "/")
   (route/not-found "Not Found"))
-
-;(def app2
-;  (-> (routes home-routes api/core-routes app-routes)
-;      (handler/site)
-;      (wrap-base-url)))
 
 (def app
   (-> (routes home-routes api/core-routes app-routes)

@@ -7,7 +7,9 @@ The `sortd` utility/service supports three (3) formats:
 - pipe-delimited (`|`) : ex. `"FirstName | LastName | Hobby"`
 - space-delimited : ex. `"FirstName LastName Hobby"`
 
-NOTE: The delimiter is assumed to **NOT** be in the data or header values.
+**NOTE:**
+- The delimiter is assumed to **NOT** be in the data or header values.
+- The `sortd` service/utility auto-determines delimiter type.
 
 ## Command Line
 
@@ -276,14 +278,19 @@ Returns records sorted by `name`.
 
 ## Start Service
 
-To start the `sortd` web server, run:
+To start the `sortd` service on default port `30001, run:
 
 ```text
-$ lein ring server
-```
-or
-```text
 $ ./sortd-service
+
+Starting sortd service
+2020-04-01 11:19:29.408:INFO::main: Logging initialized @1139ms
+sortd service is starting
+2020-04-01 11:19:32.397:INFO:oejs.Server:main: jetty-9.2.21.v20170120
+2020-04-01 11:19:32.456:INFO:oejs.ServerConnector:main: Started ServerConnector@6ad2a8db{HTTP/1.1}{0.0.0.0:3000}
+2020-04-01 11:19:32.457:INFO:oejs.Server:main: Started @4188ms
+Started server on port 3000
+
 ```
 
 ## Test Coverage
@@ -291,7 +298,7 @@ $ ./sortd-service
 The [cloverage](https://github.com/cloverage/cloverage) test coverage plugin 
 has been added to `project.clj`.
 
-To run `cloverage`:
+To run coverage test/report:
 
 ```
 $ ./coverage
