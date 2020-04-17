@@ -282,7 +282,7 @@ Returns records sorted by `name`.
 
 ## Start Service
 
-To start the `sortd` service on default port `30001, run:
+To start the `sortd` service on default port `3000`, run:
 
 ```text
 $ ./sortd-service
